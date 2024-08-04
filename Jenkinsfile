@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage("Checkout code") {
+        stage('Checkout code') {
             //check the repo
             steps {
                 git branch: 'main', url: 'https://github.com/AlexanderIgnatovAntov/SeleniumIDE_Jenkins_Demo_04.08.2024'
             }
         }
-        stage("Set up .Net Core") {
+        stage('Set up .Net Core') {
             //install dot net
             steps {
                 bat '''
@@ -19,15 +19,15 @@ pipeline {
                 '''
             }
         }
-        stage("Restore dependencies") {
+        stage('Restore dependencies') {
             //install dependencies
             bat 'dotnet restore SeleniumIde.sln'
         }
-        stage("Build") {
+        stage('Build') {
             //build
             bat 'dotnet build SeleniumIde.sln --configuration Release'
         }
-        stage("Run Tests") {
+        stage('Run Tests') {
             //run tests
             bat 'dotnet test SeleniumIde.sln --logger "trx;logFileName=TestResults.trx"'
         }
